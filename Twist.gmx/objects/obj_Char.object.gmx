@@ -32,6 +32,7 @@ vsp = 0;
 jumpSpeed = 5;
 moveSpeed = 4;
 currSide = 0;
+enabled = true;
 </string>
           </argument>
         </arguments>
@@ -56,40 +57,43 @@ currSide = 0;
             <kind>1</kind>
             <string>///Basics
 //Controls
-keyRight = keyboard_check(ord("D"));
-keyLeft = -keyboard_check(ord("A"));
-keyJump = keyboard_check_pressed(ord("W"));
-keyTwist = keyboard_check_pressed(vk_space);
-
-//React to controls
-move = keyRight + keyLeft;
-hsp = move * moveSpeed;
-if(vsp &lt; 10) vsp += grav;
-if(place_meeting(x,y+1,obj_Floor))
+if(enabled)
 {
-    vsp = keyJump * -jumpSpeed;
-}
-
-//Collisions
-if(place_meeting(x+hsp, y, par_Floor))
-{
-    while(!place_meeting(x+sign(hsp),y, par_Floor))
+    keyRight = keyboard_check(ord("D"));
+    keyLeft = -keyboard_check(ord("A"));
+    keyJump = keyboard_check_pressed(ord("W"));
+    keyTwist = keyboard_check_pressed(vk_space);
+    
+    //React to controls
+    move = keyRight + keyLeft;
+    hsp = move * moveSpeed;
+    if(vsp &lt; 10) vsp += grav;
+    if(place_meeting(x,y+1,obj_Floor))
     {
-        x += sign(hsp);
+        vsp = keyJump * -jumpSpeed;
     }
-    hsp = 0;
-}
-x += hsp;
-
-if(place_meeting(x, y+vsp, par_Floor))
-{
-    while(!place_meeting(x,y+sign(vsp), par_Floor))
+    
+    //Collisions
+    if(place_meeting(x+hsp, y, par_Floor))
     {
-        y += sign(vsp);        
+        while(!place_meeting(x+sign(hsp),y, par_Floor))
+        {
+            x += sign(hsp);
+        }
+        hsp = 0;
     }
-    vsp = 0;
+    x += hsp;
+    
+    if(place_meeting(x, y+vsp, par_Floor))
+    {
+        while(!place_meeting(x,y+sign(vsp), par_Floor))
+        {
+            y += sign(vsp);        
+        }
+        vsp = 0;
+    }
+    y += vsp;
 }
-y += vsp;
 </string>
           </argument>
         </arguments>
@@ -111,49 +115,52 @@ y += vsp;
           <argument>
             <kind>1</kind>
             <string>///Floor detection
-//Twisting
-if(keyTwist)
+if(enabled)
 {
-    switch(currSide)
-        {
-            case 0:
-                currSide++;
-                sprite_index = spr_CharGreen;
-                break;
-            case 1:
-                currSide++;
-                sprite_index = spr_CharRed;
-                break;
-            case 2:
-                currSide++;
-                sprite_index = spr_CharYellow;
-                break;
-            case 3:
-                currSide = 0;
-                sprite_index = spr_CharBlue;
-                break;
-        }
-}
-
-//Floor detection
-if(place_meeting(x-16, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
-{
-    room_restart();
-}
-
-if(place_meeting(x-16, y+1, obj_FloorGreen)) &amp;&amp; (currSide !=1)
-{
-    room_restart();
-}
-
-if(place_meeting(x-16, y+1, obj_FloorRed)) &amp;&amp; (currSide !=2)
-{
-    room_restart();
-}
-
-if(place_meeting(x-16, y+1, obj_FloorYellow)) &amp;&amp; (currSide !=3)
-{
-    room_restart();
+    //Twisting
+    if(keyTwist)
+    {
+        switch(currSide)
+            {
+                case 0:
+                    currSide++;
+                    sprite_index = spr_CharGreen;
+                    break;
+                case 1:
+                    currSide++;
+                    sprite_index = spr_CharRed;
+                    break;
+                case 2:
+                    currSide++;
+                    sprite_index = spr_CharYellow;
+                    break;
+                case 3:
+                    currSide = 0;
+                    sprite_index = spr_CharBlue;
+                    break;
+            }
+    }
+    
+    //Floor detection
+    if(place_meeting(x-16, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
+    {
+        room_restart();
+    }
+    
+    if(place_meeting(x-16, y+1, obj_FloorGreen)) &amp;&amp; (currSide !=1)
+    {
+        room_restart();
+    }
+    
+    if(place_meeting(x-16, y+1, obj_FloorRed)) &amp;&amp; (currSide !=2)
+    {
+        room_restart();
+    }
+    
+    if(place_meeting(x-16, y+1, obj_FloorYellow)) &amp;&amp; (currSide !=3)
+    {
+        room_restart();
+    }
 }
 </string>
           </argument>

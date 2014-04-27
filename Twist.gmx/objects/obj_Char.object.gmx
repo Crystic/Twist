@@ -35,7 +35,6 @@ currSide = 0;
 enabled = true;
 currDirection = 0;
 currSide = 0
-
 rallyScore = 0;
 </string>
           </argument>
@@ -78,16 +77,19 @@ if(enabled)
     motion_set(currDirection, hsp);
         
     //Collisions
+    
     if(place_meeting(x+hsp, y, obj_LtoR))
     {
-        //motion_set(0, hsp)
+        obj_FloorRand.regenFloor = true;
         currDirection = 0;
-        hsp += 0.5;
-    } else if (place_meeting(x+hsp, y, obj_RtoL))
+        hsp += 0.1;
+    } 
+    
+    if (place_meeting(x+hsp, y, obj_RtoL))
     {
-        //motion_set(180, hsp);
+        obj_FloorRand.regenFloor = true;
         currDirection = 180;
-        hsp += 0.5;
+        hsp += 0.1;
     }
     
     if(place_meeting(x+hsp, y, par_Floor))
@@ -158,19 +160,53 @@ if(enabled)
     //Floor detection
     if(place_meeting(x, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
     {
-        room_restart();
+        enabled = false;
     }
     
     if(place_meeting(x, y+1, obj_FloorGreen)) &amp;&amp; (currSide !=1)
     {
-        room_restart();
+        enabled = false;
     }
     
     if(place_meeting(x, y+1, obj_FloorRed)) &amp;&amp; (currSide !=2)
     {
-        room_restart();
+        enabled = false;
     }
 }
+else
+{
+    instance_create(room_width/2, room_height/2, obj_BtnRetry)
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="0">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>draw_self();
+
+draw_set_font(fnt_Main);
+draw_set_color(c_black);
+draw_set_halign(fa_center);
+draw_text(room_width/2, room_height/2-350, "Match your colour to the floor. Use 1, 2 &amp; 3.")
+draw_text(room_width/2, room_height/2-310, "Score")
+draw_text(room_width/2, room_height/2-270, rallyScore)
 </string>
           </argument>
         </arguments>

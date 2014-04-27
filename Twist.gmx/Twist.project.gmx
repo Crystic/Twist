@@ -4,7 +4,9 @@
     <Config>Configs\Default</Config>
   </Configs>
   <NewExtensions/>
-  <sounds name="sound"/>
+  <sounds name="sound">
+    <sound>sound\snd_CharBlue</sound>
+  </sounds>
   <sprites name="sprites">
     <sprites name="Character">
       <sprite>sprites\spr_CharBlue</sprite>
@@ -16,17 +18,26 @@
       <sprite>sprites\spr_FloorBlue</sprite>
       <sprite>sprites\spr_FloorGreen</sprite>
       <sprite>sprites\spr_FloorRed</sprite>
+      <sprite>sprites\spr_FloorRand</sprite>
     </sprites>
     <sprites name="Mechanics">
       <sprite>sprites\spr_LtoR</sprite>
       <sprite>sprites\spr_RtoL</sprite>
+      <sprite>sprites\spr_BtnRetry</sprite>
+      <sprite>sprites\spr_BtnRetryClicked</sprite>
+      <sprite>sprites\spr_Score</sprite>
     </sprites>
   </sprites>
-  <backgrounds name="background"/>
+  <backgrounds name="background">
+    <background>background\bg_Main</background>
+  </backgrounds>
   <paths name="paths"/>
   <scripts name="scripts">
     <script>scripts\scr_Hop.gml</script>
   </scripts>
+  <fonts name="fonts">
+    <font>fonts\fnt_Main</font>
+  </fonts>
   <objects name="objects">
     <object>objects\obj_Char</object>
     <objects name="Floors">
@@ -34,11 +45,14 @@
       <object>objects\obj_FloorBlue</object>
       <object>objects\obj_FloorGreen</object>
       <object>objects\obj_FloorRed</object>
+      <object>objects\obj_FloorRand</object>
     </objects>
     <objects name="Mechanics">
       <object>objects\par_Floor</object>
       <object>objects\obj_RtoL</object>
       <object>objects\obj_LtoR</object>
+      <object>objects\obj_BtnRetry</object>
+      <object>objects\obj_Score</object>
     </objects>
   </objects>
   <rooms name="rooms">

@@ -22,6 +22,9 @@
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
+  <scripts name="scripts">
+    <script>scripts\scr_Hop.gml</script>
+  </scripts>
   <objects name="objects">
     <object>objects\obj_Char</object>
     <objects name="Floors">

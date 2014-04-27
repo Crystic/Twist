@@ -33,6 +33,7 @@ jumpSpeed = 5;
 moveSpeed = 4;
 currSide = 0;
 enabled = true;
+
 </string>
           </argument>
         </arguments>
@@ -115,32 +116,40 @@ if(enabled)
           <argument>
             <kind>1</kind>
             <string>///Floor detection
+
+//Fade jump
+
 if(enabled)
 {
-    //Twisting
+    //Fade
     if(keyTwist)
     {
         switch(currSide)
             {
-                case 0:
+                case 0:                 
+                    script_execute(scr_Hop);
                     currSide++;
                     sprite_index = spr_CharGreen;
                     break;
                 case 1:
+                    script_execute(scr_Hop);
                     currSide++;
                     sprite_index = spr_CharRed;
                     break;
                 case 2:
+                    script_execute(scr_Hop);
                     currSide++;
                     sprite_index = spr_CharYellow;
                     break;
                 case 3:
+                    script_execute(scr_Hop);
                     currSide = 0;
                     sprite_index = spr_CharBlue;
                     break;
+                    
             }
-    }
-    
+    }       
+            
     //Floor detection
     if(place_meeting(x-16, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
     {

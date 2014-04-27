@@ -10,14 +10,16 @@
       <sprite>sprites\spr_CharBlue</sprite>
       <sprite>sprites\spr_CharGreen</sprite>
       <sprite>sprites\spr_CharRed</sprite>
-      <sprite>sprites\spr_CharYellow</sprite>
     </sprites>
     <sprites name="Floors">
       <sprite>sprites\spr_Floor</sprite>
       <sprite>sprites\spr_FloorBlue</sprite>
       <sprite>sprites\spr_FloorGreen</sprite>
       <sprite>sprites\spr_FloorRed</sprite>
-      <sprite>sprites\spr_FloorYellow</sprite>
+    </sprites>
+    <sprites name="Mechanics">
+      <sprite>sprites\spr_LtoR</sprite>
+      <sprite>sprites\spr_RtoL</sprite>
     </sprites>
   </sprites>
   <backgrounds name="background"/>
@@ -32,14 +34,15 @@
       <object>objects\obj_FloorBlue</object>
       <object>objects\obj_FloorGreen</object>
       <object>objects\obj_FloorRed</object>
-      <object>objects\obj_FloorYellow</object>
     </objects>
     <objects name="Mechanics">
       <object>objects\par_Floor</object>
+      <object>objects\obj_RtoL</object>
+      <object>objects\obj_LtoR</object>
     </objects>
   </objects>
   <rooms name="rooms">
-    <room>rooms\room0</room>
+    <room>rooms\rm_Game</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

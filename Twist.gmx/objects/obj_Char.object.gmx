@@ -27,13 +27,16 @@
             <kind>1</kind>
             <string>///Initialize Variables
 grav = 0.2;
-hsp = 0;
+hsp = 2;
 vsp = 0;
 jumpSpeed = 5;
 moveSpeed = 4;
 currSide = 0;
 enabled = true;
+currDirection = 0;
+currSide = 0
 
+rallyScore = 0;
 </string>
           </argument>
         </arguments>
@@ -60,21 +63,33 @@ enabled = true;
 //Controls
 if(enabled)
 {
-    keyRight = keyboard_check(ord("D"));
-    keyLeft = -keyboard_check(ord("A"));
+    keyBlue = keyboard_check_direct(ord("1"))
+    keyGreen = keyboard_check_direct(ord("2"))
+    keyRed = keyboard_check_direct(ord("3"))
     keyJump = keyboard_check_pressed(ord("W"));
-    keyTwist = keyboard_check_pressed(vk_space);
     
     //React to controls
-    move = keyRight + keyLeft;
-    hsp = move * moveSpeed;
     if(vsp &lt; 10) vsp += grav;
     if(place_meeting(x,y+1,obj_Floor))
     {
         vsp = keyJump * -jumpSpeed;
     }
-    
+
+    motion_set(currDirection, hsp);
+        
     //Collisions
+    if(place_meeting(x+hsp, y, obj_LtoR))
+    {
+        //motion_set(0, hsp)
+        currDirection = 0;
+        hsp += 0.5;
+    } else if (place_meeting(x+hsp, y, obj_RtoL))
+    {
+        //motion_set(180, hsp);
+        currDirection = 180;
+        hsp += 0.5;
+    }
+    
     if(place_meeting(x+hsp, y, par_Floor))
     {
         while(!place_meeting(x+sign(hsp),y, par_Floor))
@@ -83,7 +98,6 @@ if(enabled)
         }
         hsp = 0;
     }
-    x += hsp;
     
     if(place_meeting(x, y+vsp, par_Floor))
     {
@@ -121,52 +135,38 @@ if(enabled)
 
 if(enabled)
 {
-    //Fade
-    if(keyTwist)
+    //Switch  
+    
+    if(keyBlue)
     {
-        switch(currSide)
-            {
-                case 0:                 
-                    script_execute(scr_Hop);
-                    currSide++;
-                    sprite_index = spr_CharGreen;
-                    break;
-                case 1:
-                    script_execute(scr_Hop);
-                    currSide++;
-                    sprite_index = spr_CharRed;
-                    break;
-                case 2:
-                    script_execute(scr_Hop);
-                    currSide++;
-                    sprite_index = spr_CharYellow;
-                    break;
-                case 3:
-                    script_execute(scr_Hop);
-                    currSide = 0;
-                    sprite_index = spr_CharBlue;
-                    break;
-                    
-            }
-    }       
+        sprite_index = spr_CharBlue;
+        currSide = 0;
+    }
+    
+    if (keyGreen)
+    {
+        sprite_index = spr_CharGreen;
+        currSide = 1;
+    }
+    
+    if (keyRed)
+    {
+        sprite_index = spr_CharRed;
+        currSide = 2;
+    }
             
     //Floor detection
-    if(place_meeting(x-16, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
+    if(place_meeting(x, y+1, obj_FloorBlue)) &amp;&amp; (currSide !=0)
     {
         room_restart();
     }
     
-    if(place_meeting(x-16, y+1, obj_FloorGreen)) &amp;&amp; (currSide !=1)
+    if(place_meeting(x, y+1, obj_FloorGreen)) &amp;&amp; (currSide !=1)
     {
         room_restart();
     }
     
-    if(place_meeting(x-16, y+1, obj_FloorRed)) &amp;&amp; (currSide !=2)
-    {
-        room_restart();
-    }
-    
-    if(place_meeting(x-16, y+1, obj_FloorYellow)) &amp;&amp; (currSide !=3)
+    if(place_meeting(x, y+1, obj_FloorRed)) &amp;&amp; (currSide !=2)
     {
         room_restart();
     }
